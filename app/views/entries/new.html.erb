@@ -1,7 +1,8 @@
-<h2>New Entry</h2>
+<div class="container">
 
 <% @user = User.find_by({ "id" => session["user_id"] }) %>
 <% if @user != nil %>
+<h2>New Entry</h2>
   <form action="/entries" method="post" enctype="multipart/form-data">
     <input type="hidden" name="place_id" value="<%= params["place_id"] %>">
 
@@ -26,3 +27,4 @@
 <% else %>
   You must first <a href="/login">login</a> to add a new entry.
 <% end %>
+</div>

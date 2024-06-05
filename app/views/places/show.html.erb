@@ -1,3 +1,4 @@
+<div class="container">
 <% @user = User.find_by({ "id" => session["user_id"] }) %>
 <% if @user != nil %>
 <h2 class="mb-3"><%= @place["name"] %></h2>
@@ -45,3 +46,4 @@
 <% else %>
   You must first <a href="/login">login</a> to view a place.
 <% end %>
+</div>
