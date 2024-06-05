@@ -1,49 +1,38 @@
 <div class="container">
-<% @user = User.find_by({ "id" => session["user_id"] }) %>
-<% if @user != nil %>
-<h2 class="mb-3"><%= @place["name"] %></h2>
-
-<div class="mb-3">
-  <a href="/entries/new?place_id=<%= @place["id"] %>" class="btn btn-primary">New Entry</a>
-</div>
-
-
-<div class="row align-items-start">
-  <% for entry in @entries %>
-    <div class="col-6 col-sm-4">
-      <div class="mb-3">
-      </div>
-      <h4>
-        <div class="container text-center">
-        <%= entry["title"] %>
-        </div>
-      </h4>
-      <div class="small fst-italic">
-        <%= entry["occurred_on"] %>
-      </div>
-      <% if entry.uploaded_image.attached? %>
-        <img src="<%= url_for(entry.uploaded_image) %>" class="img-fluid">
-      <% else %>
-        <img src="<%= entry["image"] %>" class="img-fluid">
-      <% end %>
-
-      <div class="small fst-italic">
-        <%= entry["description"] %>
-      </div>
+  <% @user = User.find_by(id: session[:user_id]) %>
+  <% if @user %>
+    <h2 class="mb-3">
+      <%= @place.name %>
+    </h2>
+    <div class="mb-3">
+      <a href="/entries/new?place_id=<%= @place.id %>" class="btn btn-primary">New Entry</a>
     </div>
 
+    <div class="row">
+     <% @entries.each do |entry| %>
+        <div class="col-md-4 mb-3">
+          <div class="card mb-3" style="width: 18rem;">
+            <% if entry.uploaded_image.attached? %>
+             <img src="<%= url_for(entry.uploaded_image) %>" class="card-img-top">
+            <% else %>
+              <img src="<%= entry.image %>" class="card-img-top">
+            <% end %>
+            <div class="card-body">
+             <h5 class="card-title"><%= entry.title %></h5>
+             <p class="card-text"><%= entry.description %></p>
+             <div class="small fst-italic">
+               <%= entry.occurred_on %>
+             </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mb-3">
+      <a href="/places" class="btn btn-outline-secondary">Back to All Places</a>
+    </div>
+  <% else %>
+    <p>You must first <a href="/login">login</a> to view a place.</p>
   <% end %>
-</div>
-
-
-
-<div class="mb-3">
-</div>
-<div class="mb-3">
-  <a href="/places" class="btn btn-outline-secondary">Back to All Places</a>
-</div>
-
-<% else %>
-  You must first <a href="/login">login</a> to view a place.
-<% end %>
 </div>
