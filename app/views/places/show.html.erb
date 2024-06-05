@@ -7,10 +7,9 @@
     <div class="mb-3">
       <a href="/entries/new?place_id=<%= @place.id %>" class="btn btn-primary">New Entry</a>
     </div>
-
     <div class="row">
      <% @entries.each do |entry| %>
-        <div class="col-md-4 mb-3">
+       <div class="col-md-4 mb-3">
           <div class="card mb-3" style="width: 18rem;">
             <% if entry.uploaded_image.attached? %>
              <img src="<%= url_for(entry.uploaded_image) %>" class="card-img-top">
@@ -28,7 +27,6 @@
         </div>
       <% end %>
     </div>
-
     <div class="mb-3">
       <a href="/places" class="btn btn-outline-secondary">Back to All Places</a>
     </div>
